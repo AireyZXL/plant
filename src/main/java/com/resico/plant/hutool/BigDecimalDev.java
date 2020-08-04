@@ -18,6 +18,7 @@ public class BigDecimalDev {
 
         BigDecimal multiply = decimal.multiply(MULTIPLE_100);
         System.out.println(multiply);
+        System.out.println(1111111);
 
     }
 
