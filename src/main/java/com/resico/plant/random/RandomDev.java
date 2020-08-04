@@ -16,6 +16,8 @@ public class RandomDev {
 
         for (int j = 0; j < 15; j++) {
             System.out.println(RandomUtil.randomInt(190, 200));
+
+            System.out.println("1213213");
         }
 
 
