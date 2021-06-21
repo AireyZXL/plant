@@ -12,9 +12,11 @@ import java.util.Arrays;
 public class Test {
 
     public static void main(String[] args) {
-        Solution solution = new Test().new Solution();
-        int reverse = solution.reverse(1534236469);
-        System.out.println(reverse);
+       int m=78098;
+        String s = Integer.toBinaryString(m);
+        System.out.println(s);
+        int i = Integer.bitCount(m);
+        System.out.println("1的个数="+i);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
