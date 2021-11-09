@@ -22,8 +22,18 @@ package com.resico.plant.leetcode;
 public class DeleteMiddleNodeLcci {
     public static void main(String[] args) {
         Solution solution = new DeleteMiddleNodeLcci().new Solution();
+
+        ListNode listNode = new ListNode(4);
+        ListNode listNode1 = new ListNode(1);
+        ListNode listNode2 = new ListNode(5);
+        ListNode listNode3 = new ListNode(9);
+        listNode.next = listNode1;
+        listNode1.next = listNode2;
+        listNode2.next = listNode3;
+
+        solution.deleteNode(listNode);
+
     }
-    //leetcode submit region begin(Prohibit modification and deletion)
 
     /**
      * Definition for singly-linked list.
@@ -36,13 +46,17 @@ public class DeleteMiddleNodeLcci {
     class Solution {
         public void deleteNode(ListNode node) {
 
+            node.val=node.next.val;
+            node.next=node.next.next;
+
         }
     }
-//leetcode submit region end(Prohibit modification and deletion)
 
-    class ListNode {
+
+    static class ListNode {
         int val;
         ListNode next;
+
         ListNode(int x) {
             val = x;
         }
