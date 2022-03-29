@@ -1,1 +1,8 @@
 
+
+
+mysql:
+  dbUrl: 192.168.100.23
+  dbName: resico-invoice-dev2
+  username: dev
+  password: Resico@dev

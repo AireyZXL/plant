@@ -16,6 +16,9 @@ public class Test {
         System.out.println(notNull);
 
 
+        Cat cat=new Cat();
+        System.out.println(cat);
+
     }
 
 
