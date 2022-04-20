@@ -7,6 +7,10 @@ import java.io.InputStreamReader;
 import weibo4j.Oauth;
 import weibo4j.model.WeiboException;
 import weibo4j.util.BareBonesBrowserLaunch;
+//AccessToken [accessToken=2.00ObNAdDkIR7kDdacbdd6ec6NNmgBE, expireIn=157679999, refreshToken=,uid=3324727880]
+
+
+//AccessToken [accessToken=2.00ObNAdDdk5_GB948a321d61_CKAbC, expireIn=157679999, refreshToken=,uid=3324727880]
 
 public class OAuth4Code {
 	public static void main(String [] args) throws WeiboException, IOException{
