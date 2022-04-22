@@ -1,8 +1,12 @@
-
-
-
 mysql:
   dbUrl: 192.168.100.23
   dbName: resico-invoice-dev2
   username: dev
   password: Resico@dev
+
+
+
+wx:
+  office:
+    appId: wxbb2b0c04e0658377
+    secret: 600877b09a45203618f4504c8cae7490

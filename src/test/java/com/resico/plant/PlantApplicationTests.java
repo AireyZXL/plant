@@ -5,6 +5,7 @@ import com.resico.plant.mysql.config.MysqlProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import com.resico.plant.office.WxOfficeService;
 
 @SpringBootTest
 class PlantApplicationTests {
@@ -14,6 +15,9 @@ class PlantApplicationTests {
 
     @Autowired
     private MysqlService mysqlService;
+
+    @Autowired
+    private WxOfficeService wxOfficeService;
 
     @Test
     void contextLoads() {
@@ -61,6 +65,45 @@ class PlantApplicationTests {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+
+    @Test
+    public void  getToken(){
+
+        System.out.println("11111");
+        String token = wxOfficeService.getToken();
+
+    }
+
+    @Test
+    public void sendMedia(){
+
+        String token="56_D1_wCodpmkAx6gWb8POGK7fCqpMv3MvE5LZ9V-g6Lw-44nx-guk1FmWEHfJFjHUzPRKkH_DUvpkEmkZZbEMdDL5bzMF_2H82Yk7owA2WJGV8d_Xl3dWRE3dRgXzyAa4Te6QKysC9fd9F17YDQWBjAAAUAF";
+        String media="src/main/resources/yinhua.png";
+        String result = wxOfficeService.sendMedia(token, media);
+        System.out.println("result="+result);
+
+    }
+
+
+    @Test
+    public void uploadNews(){
+
+        String token="56_D1_wCodpmkAx6gWb8POGK7fCqpMv3MvE5LZ9V-g6Lw-44nx-guk1FmWEHfJFjHUzPRKkH_DUvpkEmkZZbEMdDL5bzMF_2H82Yk7owA2WJGV8d_Xl3dWRE3dRgXzyAa4Te6QKysC9fd9F17YDQWBjAAAUAF";
+        String result = wxOfficeService.uploadNews(token);
+        System.out.println("result="+result);
+    }
+
+    @Test
+    public void testAddTemporary(){
+
+        String token="56_D1_wCodpmkAx6gWb8POGK7fCqpMv3MvE5LZ9V-g6Lw-44nx-guk1FmWEHfJFjHUzPRKkH_DUvpkEmkZZbEMdDL5bzMF_2H82Yk7owA2WJGV8d_Xl3dWRE3dRgXzyAa4Te6QKysC9fd9F17YDQWBjAAAUAF";
+        String media="src/main/resources/yinhua.png";
+        String result=wxOfficeService.addTemporaryMaterial(token,"image",media);
+        System.out.println("result="+result);
+
 
     }
 
