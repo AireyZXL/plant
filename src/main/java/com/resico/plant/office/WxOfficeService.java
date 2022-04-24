@@ -1,5 +1,7 @@
 package com.resico.plant.office;
 
+import java.util.List;
+
 /**
  * @author Airey
  * @since 2022/4/22 11:17
@@ -35,6 +37,16 @@ public interface WxOfficeService {
 
 
     /**
+     * 新增永久素材
+     * @param token
+     * @param type
+     * @param media
+     * @return
+     */
+    String addPermanentMaterial(String token,String type,String media);
+
+
+    /**
      * 上传图文素材
      *
      * @param token
@@ -44,12 +56,45 @@ public interface WxOfficeService {
 
 
     /**
+     * 发布草稿
+     *
+     * mmuCDB4EAA3F21cyzsSc001C9gTfnvJz1Se2zePmZqCd8H8TsGmMjQq4KwiIV_PO
+     * @param news
+     * @return
+     */
+    String addDraft(Articles articles, String accessToken);
+
+
+    /**
+     * 发布信息
+     * @param token
+     * @param draftId
+     * @return
+     */
+    String submit(String token,String draftId);
+
+
+    /**
+     * 查询发布状态
+     * 2247488186
+     * @param token
+     * @param publishId
+     * @return
+     */
+    String freePublish(String token,String publishId);
+
+
+    /**
      * 群发图文消息
      * @param token
      * @param articles
      * @return
      */
     String sendArticle(String token, Articles articles);
+
+
+
+
 
 
 }

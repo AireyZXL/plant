@@ -2,8 +2,7 @@ package com.resico.plant.office.impl;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.resico.plant.office.Articles;
-import com.resico.plant.office.News;
+import com.resico.plant.office.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
@@ -11,8 +10,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import com.resico.plant.office.WxOfficeConfig;
-import com.resico.plant.office.WxOfficeService;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -44,6 +41,21 @@ public class WxOfficeServiceImpl implements WxOfficeService {
     private static final  String UPLOAD_NEWS_URL="https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=ACCESS_TOKEN";
 
     private static final String UPLOAD_TEMP_URL="https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
+
+
+    private static final String UPLOAD_PERMANENT_URL="https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=ACCESS_TOKEN&type=TYPE";
+
+    private static final String UPLOAD_DRAFT_URL="https://api.weixin.qq.com/cgi-bin/draft/add?access_token=ACCESS_TOKEN";
+
+
+    private static final String SUBMIT_URL="https://api.weixin.qq.com/cgi-bin/freepublish/submit?access_token=ACCESS_TOKEN";
+
+
+    private static final String PUBLISH_URL="https://api.weixin.qq.com/cgi-bin/freepublish/get?access_token=ACCESS_TOKEN";
+
+
+    private static  final String SEND_ALL_URL="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=ACCESS_TOKEN";
+
 
     /**
      * 获取token
@@ -155,6 +167,49 @@ public class WxOfficeServiceImpl implements WxOfficeService {
 
     }
 
+    /**
+     * 新增永久素材
+     *
+     * @param token
+     * @param type
+     * @param media
+     * @return
+     */
+    @Override
+    public String addPermanentMaterial(String token, String type, String media) {
+        if (token != null) {
+            String url = UPLOAD_PERMANENT_URL.replace("ACCESS_TOKEN", token).replace("TYPE",type);
+            log.info("UPLOAD_IMG_URL:{}",url);
+
+            //设置请求体，注意是LinkedMultiValueMap
+            MultiValueMap<String, Object> data = new LinkedMultiValueMap<>();
+
+            //设置上传文件
+            FileSystemResource fileSystemResource = new FileSystemResource(media);
+            data.add("media", fileSystemResource);
+
+            //上传文件,设置请求头
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+            httpHeaders.setContentLength(fileSystemResource.getFile().length());
+
+            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(data,
+                    httpHeaders);
+            try{
+                //这里RestTemplate请求返回的字符串直接转换成JSONObject会报异常,后续深入找一下原因
+//                ResponseEntity<JSONObject> resultEntity = restTemplate.exchange(url,
+//                        HttpMethod.POST, requestEntity, JSONObject.class);
+                String resultJSON = restTemplate.postForObject(url, requestEntity, String.class);
+                log.info("永久素材 = 上传返回的信息是：{}",resultJSON);
+                return resultJSON;
+            }catch (Exception e){
+                log.error(e.getMessage());
+            }
+        }
+        return null;
+
+    }
+
 
     private Articles createArticles(){
 
@@ -163,7 +218,7 @@ public class WxOfficeServiceImpl implements WxOfficeService {
         List<News> dataList = new ArrayList<>();
         News  news1 = new News();
         news1.setTitle("标题1");
-        news1.setThumb_media_id("VakTMdTf-ueu7Mi07jCbovIMUqDmIjGe7jCJl9UHVz7l9Yvd7c-SLzxf7dqrJpeV");
+        news1.setThumb_media_id("mmuCDB4EAA3F21cyzsSc017xuaWjwR4_JxSi0UgTyF2N0TZF3hCwx7Q5SfxLKHWA");
         news1.setAuthor("作者Air");
         news1.setDigest("图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空。如果本字段为没有填写，则默认抓取正文前64个字。");
         news1.setShow_cover_pic(1);//显示封面
@@ -175,7 +230,7 @@ public class WxOfficeServiceImpl implements WxOfficeService {
 
         News  news2 = new News();
         news2.setTitle("标题2");
-        news2.setThumb_media_id("VakTMdTf-ueu7Mi07jCbovIMUqDmIjGe7jCJl9UHVz7l9Yvd7c-SLzxf7dqrJpeV");
+        news2.setThumb_media_id("mmuCDB4EAA3F21cyzsSc017xuaWjwR4_JxSi0UgTyF2N0TZF3hCwx7Q5SfxLKHWA");
         news2.setAuthor("作者Air");
         news2.setDigest("图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空。如果本字段为没有填写，则默认抓取正文前64个字。");
         news2.setShow_cover_pic(1);//显示封面
@@ -221,6 +276,95 @@ public class WxOfficeServiceImpl implements WxOfficeService {
     }
 
     /**
+     * 发布草稿
+     *
+     * @param articles
+     * @return
+     */
+    @Override
+    public String addDraft(Articles articles,String accessToken) {
+
+        if (accessToken != null) {
+            log.info("URL{}", UPLOAD_DRAFT_URL);
+            String url = UPLOAD_DRAFT_URL.replace("ACCESS_TOKEN", accessToken);
+            log.info("UPLOAD_NEWS_URL:{}", url);
+
+            //将菜单对象转换成JSON字符串
+            String jsonNews = JSONObject.toJSONString(articles);
+            log.info("JSONNEWS:{}",jsonNews);
+
+            //发起POST请求创建菜单
+            String jsonObject = restTemplate.postForObject(url, jsonNews,String.class);
+
+            return jsonObject;
+        }
+        return null;
+    }
+
+    /**
+     * 发布信息
+     *
+     * @param token
+     * @param draftId
+     * @return
+     */
+    @Override
+    public String submit(String token, String draftId) {
+
+        if (token != null) {
+            log.info("URL:{}", SUBMIT_URL);
+            String url = SUBMIT_URL.replace("ACCESS_TOKEN", token);
+            log.info("submitUrl:{}", url);
+
+            //将菜单对象转换成JSON字符串
+            JSONObject js=new JSONObject();
+            js.put("media_id",draftId);
+            String jsonNews = js.toJSONString();
+            log.info("JSONNEWS:{}",jsonNews);
+
+            //发起POST请求创建菜单
+            String jsonObject = restTemplate.postForObject(url, jsonNews,String.class);
+
+            return jsonObject;
+        }
+
+
+        return null;
+    }
+
+    /**
+     * 查询发布状态
+     * 2247488186
+     *
+     * @param token
+     * @param publishId
+     * @return
+     */
+    @Override
+    public String freePublish(String token, String publishId) {
+
+
+        if (token != null) {
+            log.info("URL:{}", PUBLISH_URL);
+            String url = PUBLISH_URL.replace("ACCESS_TOKEN", token);
+            log.info("submitUrl:{}", url);
+
+            //将菜单对象转换成JSON字符串
+            JSONObject js=new JSONObject();
+            js.put("publish_id",publishId);
+            String jsonNews = js.toJSONString();
+            log.info("JSONNEWS:{}",jsonNews);
+
+            //发起POST请求创建菜单
+            String jsonObject = restTemplate.postForObject(url, jsonNews,String.class);
+
+            return jsonObject;
+        }
+
+        return null;
+    }
+
+    /**
      * 群发图文消息
      *
      * @param token
@@ -230,9 +374,32 @@ public class WxOfficeServiceImpl implements WxOfficeService {
     @Override
     public String sendArticle(String token, Articles articles) {
 
+        WxMessage wxMessage=new WxMessage();
+        WxMessage.Fliter fliter = new WxMessage.Fliter();
+        fliter.setIs_to_all(true);
+        wxMessage.setFilter(fliter);
+        WxMessage.Mpnews mpnews = new WxMessage.Mpnews();
+        mpnews.setMedia_id("mmuCDB4EAA3F21cyzsSc000SGTlXcVytW6coax79IgU2dUeitM_CS_ANUIZTv1ds");
+        wxMessage.setMpnews(mpnews);
 
+        wxMessage.setMsgtype("mpnews");
+        wxMessage.setSend_ignore_reprint(0);
 
+        if (token != null) {
+            log.info("URL:{}", SEND_ALL_URL);
+            String url = SEND_ALL_URL.replace("ACCESS_TOKEN", token);
+            log.info("submitUrl:{}", url);
 
+            //将菜单对象转换成JSON字符串
+
+          String jsonNews = JSONObject.toJSONString(wxMessage);
+            log.info("JSONNEWS:{}",jsonNews);
+
+            //发起POST请求创建菜单
+            String jsonObject = restTemplate.postForObject(url, jsonNews,String.class);
+
+            return jsonObject;
+        }
         return null;
     }
 
