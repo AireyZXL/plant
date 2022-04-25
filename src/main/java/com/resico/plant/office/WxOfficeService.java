@@ -1,5 +1,7 @@
 package com.resico.plant.office;
 
+import io.swagger.models.auth.In;
+
 import java.util.List;
 
 /**
@@ -63,6 +65,14 @@ public interface WxOfficeService {
      * @return
      */
     String addDraft(Articles articles, String accessToken);
+
+
+    /**
+     * 获取草稿列表
+     * @param accessToken
+     * @return
+     */
+    String draftList(String accessToken, Integer offset,Integer count);
 
 
     /**

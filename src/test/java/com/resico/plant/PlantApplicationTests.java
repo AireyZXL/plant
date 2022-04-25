@@ -85,8 +85,8 @@ class PlantApplicationTests {
     @Test
     public void sendMedia(){
 
-        String token="56_D1_wCodpmkAx6gWb8POGK7fCqpMv3MvE5LZ9V-g6Lw-44nx-guk1FmWEHfJFjHUzPRKkH_DUvpkEmkZZbEMdDL5bzMF_2H82Yk7owA2WJGV8d_Xl3dWRE3dRgXzyAa4Te6QKysC9fd9F17YDQWBjAAAUAF";
-        String media="src/main/resources/yinhua.png";
+        String token="56_lQqzchz-5j5yNqL6iXYhSixxZqQX_05NkJg4om8ArJW9a8bXri6gDnv13gKhU8VDYgSOHSiI16TNufJz0-zh8CpO5IMkJH1ybm_qU1LujjfJ_MSp_K_HhaqPiBcuMIcC5orr9i9bOk6UhZdRCBAiABAONM";
+        String media="src/main/resources/1.png";
         String result = wxOfficeService.sendMedia(token, media);
         System.out.println("result="+result);
 
@@ -125,22 +125,19 @@ class PlantApplicationTests {
     @Test
     public void  testDraft(){
 
-        String token="56_eGoZ86m59iFp3kVijYyxGdRlyxM9H-tl08FLvD0R6KIu2wj_LeEncwqQPgIP-S54UdbDKp26iWZ343lvAEruzB0Go2ByAM_jcjToGvF7bNE5uTfo38WJ5ypJAXeFzqYkGq3XTezhm1axCUnPGZUcAIAWPK";
+        String token="56_lQqzchz-5j5yNqL6iXYhSixxZqQX_05NkJg4om8ArJW9a8bXri6gDnv13gKhU8VDYgSOHSiI16TNufJz0-zh8CpO5IMkJH1ybm_qU1LujjfJ_MSp_K_HhaqPiBcuMIcC5orr9i9bOk6UhZdRCBAiABAONM";
 
         Articles articles=new Articles();
 
         News news=new News();
-        news.setTitle("觅上夏日新活动来啦!");
+        news.setTitle("【测试】Welcome To MESHINE，即刻入会，相见不恨晚~ 副标题：夏日活动来袭！带图片啊啊啊");
         news.setThumb_media_id("mmuCDB4EAA3F21cyzsSc09qQDbb62Ia6Qk7RepHLpnkmkQRiCGw8BolMTnSj2DhN");
-        news.setAuthor("airey");
+        news.setAuthor("jinxing");
         news.setShow_cover_pic(1);//显示封面
-        news.setContent("觅上致力于打造一个无限放大的首饰库，为新奢消费和潮流女性打造最个性的独立风格，呈现中国女性的高端多元之美\n" +
-                "理念\n" +
-                "摆脱购物束缚，打造随心选款，安心佩戴的全新服务式体验。\n" +
-                "使命\n" +
-                "让用户随时奢享高品质珠宝带来的欢愉，满足随心佩戴梦想。\n" +
-                "愿景\n" +
-                "让世界每一位女性，都拥有属于自己的独特风采。啦啦啦大幅度");
+        news.setContent("  <h1>觅上上新了\n" +
+                "  <img src=\"http://mmbiz.qpic.cn/mmbiz_png/8gmg5Y1u4FrRvxU2Ftwj8P8QIfV5AAsRr8e2IH2XXgmjBHEHhdO0KiaJJuQEeusEpcyyrMY07iaUPGIfyTZWxuXw/0\"> \n" +
+                "  <img src=\"http://mmbiz.qpic.cn/mmbiz_png/8gmg5Y1u4FrRvxU2Ftwj8P8QIfV5AAsRr8e2IH2XXgmjBHEHhdO0KiaJJuQEeusEpcyyrMY07iaUPGIfyTZWxuXw/0\"> \n" +
+                "  <img src=\"http://mmbiz.qpic.cn/mmbiz_png/8gmg5Y1u4FrRvxU2Ftwj8P8QIfV5AAsRr8e2IH2XXgmjBHEHhdO0KiaJJuQEeusEpcyyrMY07iaUPGIfyTZWxuXw/0\"> \n" );
         news.setContent_source_url("https://www.baidu.com/");  //图文消息的原文地址，即点击“阅读原文”后的URL
         news.setNeed_open_comment(1);   //Uint32  是否打开评论，0不打开，1打开
         news.setOnly_fans_can_comment(1);    //Uint32 是否粉丝才可评论，0所有人可评论，1粉丝才可评论
@@ -159,7 +156,7 @@ class PlantApplicationTests {
     public void testSubmit(){
 
         String token="56_eGoZ86m59iFp3kVijYyxGdRlyxM9H-tl08FLvD0R6KIu2wj_LeEncwqQPgIP-S54UdbDKp26iWZ343lvAEruzB0Go2ByAM_jcjToGvF7bNE5uTfo38WJ5ypJAXeFzqYkGq3XTezhm1axCUnPGZUcAIAWPK";
-        String result = wxOfficeService.submit(token, "mmuCDB4EAA3F21cyzsSc08UOG6UX1DZKpspMyGOKvehO-XFi8D51EVa-lV06ovgx");
+        String result = wxOfficeService.submit(token, "mmuCDB4EAA3F21cyzsSc0wlZfwzUihjEuSlFzDBlaeLfHCYeZh_kyeysGR5KqDtx");
         System.out.println("result="+result);
 
     }
@@ -176,8 +173,18 @@ class PlantApplicationTests {
 
     @Test
     public void testSendToAll(){
-        String token="56_eGoZ86m59iFp3kVijYyxGdRlyxM9H-tl08FLvD0R6KIu2wj_LeEncwqQPgIP-S54UdbDKp26iWZ343lvAEruzB0Go2ByAM_jcjToGvF7bNE5uTfo38WJ5ypJAXeFzqYkGq3XTezhm1axCUnPGZUcAIAWPK";
+        String token="56_QlOGy-2I4Hz_ai3EIVY9toegCWGQFvRMCh4JzAL5QBpviE1WluYJKvOTx0yeU0DJpFUWbVGUcQdGeAyqZvXmLwIXXCQj7HBLw1Awpp5feQmtmAB7abtEQNtc71YbY2g4nc4JXlG2mOS68sGYDTNiAFAZPJ";
         String result= wxOfficeService.sendArticle(token, null);
+        System.out.println("result="+result);
+
+    }
+
+
+    @Test
+    public void testDraftList(){
+
+        String token="56_QlOGy-2I4Hz_ai3EIVY9toegCWGQFvRMCh4JzAL5QBpviE1WluYJKvOTx0yeU0DJpFUWbVGUcQdGeAyqZvXmLwIXXCQj7HBLw1Awpp5feQmtmAB7abtEQNtc71YbY2g4nc4JXlG2mOS68sGYDTNiAFAZPJ";
+        String result=wxOfficeService.draftList(token,0,20);
         System.out.println("result="+result);
 
     }
