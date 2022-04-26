@@ -1,4 +1,4 @@
-package com.resico.plant.office;
+package com.resico.plant.office.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,7 +41,7 @@ public class News {
     @ApiModelProperty(value = "是否打开评论，0不打开，1打开")
     private Integer need_open_comment;
 
-    @ApiModelProperty(value = "是否粉丝才可评论，0所有人可评论，1粉丝才可评论")
+    @ApiModelProperty(value = "是否粉丝才可评论，0 所有人可评论，1粉丝才可评论")
     private Integer only_fans_can_comment;
 
 }

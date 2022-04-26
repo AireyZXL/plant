@@ -5,9 +5,15 @@ mysql:
   password: Resico@dev
 
 
+#  wxd4a87e770b86485d
+#  703f900bcda1968de938801301fd2b25
+
+#    appId: wxbb2b0c04e0658377
+#    secret: 600877b09a45203618f4504c8cae7490
+#
 
 wx:
   office:
-    appId: wxbb2b0c04e0658377
-    secret: 600877b09a45203618f4504c8cae7490
-    token: 56_eGoZ86m59iFp3kVijYyxGdRlyxM9H-tl08FLvD0R6KIu2wj_LeEncwqQPgIP-S54UdbDKp26iWZ343lvAEruzB0Go2ByAM_jcjToGvF7bNE5uTfo38WJ5ypJAXeFzqYkGq3XTezhm1axCUnPGZUcAIAWPK
+    appId: wxd4a87e770b86485d
+    secret: 703f900bcda1968de938801301fd2b25
+    token: 56_Pq8lNd9xPHv8QgtXR83kt8ko-mU_1J0RUPHwH5hl7mwZMUf692YOpW9rIvVZ2yyZnHGmOUUqHcL3IacFx16jTFCAnvKgyHuks1nT701tXoFsjy5BDeDuRRxQq2t1hU08OIRQd252-IoOpVjMIFMjACATQX

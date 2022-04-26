@@ -1,5 +1,6 @@
-package com.resico.plant.office;
+package com.resico.plant.office.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 public class Articles implements Serializable {
 
 
+    @ApiModelProperty("图文消息列表")
     List<News> articles;
 
 }

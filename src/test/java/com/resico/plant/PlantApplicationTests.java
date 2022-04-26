@@ -2,9 +2,8 @@ package com.resico.plant;
 
 import com.resico.plant.mysql.MysqlService;
 import com.resico.plant.mysql.config.MysqlProperties;
-import com.resico.plant.office.Articles;
-import com.resico.plant.office.News;
-import org.checkerframework.checker.units.qual.A;
+import com.resico.plant.office.model.Articles;
+import com.resico.plant.office.model.News;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

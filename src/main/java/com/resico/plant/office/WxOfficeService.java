@@ -1,8 +1,6 @@
 package com.resico.plant.office;
 
-import io.swagger.models.auth.In;
-
-import java.util.List;
+import com.resico.plant.office.model.Articles;
 
 /**
  * @author Airey
