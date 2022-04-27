@@ -2,6 +2,7 @@ package com.resico.plant.office;
 
 import com.resico.plant.office.model.Articles;
 import com.resico.plant.office.model.WxMessage;
+import com.resico.plant.office.model.WxOfficeDeleteMsg;
 import com.resico.plant.office.model.WxToken;
 import com.resico.plant.office.response.*;
 
@@ -68,6 +69,15 @@ public interface WechatOfficeAccountService {
      * @return
      */
     WxOfficeSendToAllResponse sendArticle(String accessToken, WxMessage wxMessage);
+
+
+    /**
+     * 删除群发消息
+     * @param accessToken
+     * @param wxOfficeDeleteMsg
+     * @return
+     */
+    boolean deleteMessage(String accessToken,WxOfficeDeleteMsg wxOfficeDeleteMsg);
 
 
 }

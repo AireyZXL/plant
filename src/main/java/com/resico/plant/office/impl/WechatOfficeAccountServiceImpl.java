@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONValidator;
 import com.resico.plant.office.*;
 import com.resico.plant.office.model.Articles;
 import com.resico.plant.office.model.WxMessage;
+import com.resico.plant.office.model.WxOfficeDeleteMsg;
 import com.resico.plant.office.model.WxToken;
 import com.resico.plant.office.response.*;
 import lombok.RequiredArgsConstructor;
@@ -217,14 +218,46 @@ public class WechatOfficeAccountServiceImpl implements WechatOfficeAccountServic
         String request = JSONObject.toJSONString(wxMessage);
         log.info("微信公众号群发消息请求参数:{}", request);
 
-        //发起POST请求创建菜单
         String response = restTemplate.postForObject(url, request, String.class);
-        log.info("微信公众号群发消息结果:{}",response);
+        log.info("微信公众号群发消息结果:{}", response);
         boolean validate = JSONValidator.from(response).validate();
         if (validate) {
             WxOfficeSendToAllResponse wxOfficeSendToAllResponse = JSONObject.parseObject(response, WxOfficeSendToAllResponse.class);
             return wxOfficeSendToAllResponse;
         }
         return null;
+    }
+
+    /**
+     * 删除群发消息
+     *
+     * @param accessToken
+     * @param wxOfficeDeleteMsg
+     * @return
+     */
+    @Override
+    public boolean deleteMessage(String accessToken, WxOfficeDeleteMsg wxOfficeDeleteMsg) {
+        if (ObjectUtil.isNull(accessToken)) {
+            throw new RuntimeException("微信公众号请求accessToken不能为空");
+        }
+        String url = WechatOfficeURLContants.MASS_DELETE_URL.replace("ACCESS_TOKEN", accessToken);
+        log.info("微信公众号删除群发消息url={}", url);
+
+        String request = JSONObject.toJSONString(wxOfficeDeleteMsg);
+        log.info("微信公众号删除群发消息请求参数：{}", request);
+
+        String response = restTemplate.postForObject(url, request, String.class);
+        log.info("微信公众号删除群发消息结果:{}", response);
+        boolean validate = JSONValidator.from(response).validate();
+        if (validate) {
+            WxOfficeDeleteMsgResponse wxOfficeDeleteMsgResponse = JSONObject.parseObject(response, WxOfficeDeleteMsgResponse.class);
+            if (ObjectUtil.isNotNull(wxOfficeDeleteMsgResponse)) {
+                Integer errcode = wxOfficeDeleteMsgResponse.getErrcode();
+                if (errcode.equals(0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
