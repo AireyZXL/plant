@@ -19,5 +19,6 @@ public class WxOfficeConfig {
 
     private String secret;
 
+    private String token;
 
 }

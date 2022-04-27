@@ -219,6 +219,7 @@ public class WechatOfficeAccountServiceImpl implements WechatOfficeAccountServic
 
         //发起POST请求创建菜单
         String response = restTemplate.postForObject(url, request, String.class);
+        log.info("微信公众号群发消息结果:{}",response);
         boolean validate = JSONValidator.from(response).validate();
         if (validate) {
             WxOfficeSendToAllResponse wxOfficeSendToAllResponse = JSONObject.parseObject(response, WxOfficeSendToAllResponse.class);
