@@ -15,6 +15,8 @@ public interface WechatOfficeURLContants {
 
     String UPLOAD_DRAFT_URL = "https://api.weixin.qq.com/cgi-bin/draft/add?access_token=ACCESS_TOKEN";
 
+    String GET_DRAFT_URL="https://api.weixin.qq.com/cgi-bin/draft/get?access_token=ACCESS_TOKEN";
+
     String SUBMIT_URL = "https://api.weixin.qq.com/cgi-bin/freepublish/submit?access_token=ACCESS_TOKEN";
 
     String PUBLISH_URL = "https://api.weixin.qq.com/cgi-bin/freepublish/get?access_token=ACCESS_TOKEN";

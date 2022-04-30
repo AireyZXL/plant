@@ -1,9 +1,6 @@
 package com.resico.plant.office;
 
-import com.resico.plant.office.model.Articles;
-import com.resico.plant.office.model.WxMessage;
-import com.resico.plant.office.model.WxOfficeDeleteMsg;
-import com.resico.plant.office.model.WxToken;
+import com.resico.plant.office.model.*;
 import com.resico.plant.office.response.*;
 
 /**
@@ -59,6 +56,16 @@ public interface WechatOfficeAccountService {
      * @return
      */
     WxOfficeDraftResponse addDraft(String accessToken, Articles articles);
+
+
+    /**
+     * 获取草稿
+     *
+     * @param accessToken
+     * @param media_id
+     * @return
+     */
+    WxOfficeDraftDetailResponse getDraft(String accessToken, String media_id);
 
 
     /**
