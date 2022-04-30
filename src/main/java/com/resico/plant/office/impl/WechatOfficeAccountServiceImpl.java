@@ -229,6 +229,34 @@ public class WechatOfficeAccountServiceImpl implements WechatOfficeAccountServic
     }
 
     /**
+     * 查询群发消息发送状态【订阅号与服务号认证后均可用】
+     *
+     * @param accessToken
+     * @param msg_id
+     * @return
+     */
+    @Override
+    public WxOfficeSendStatusResponse getSendStatus(String accessToken, String msg_id) {
+        if (ObjectUtil.isNull(accessToken)) {
+            throw new RuntimeException("微信公众号请求accessToken不能为空");
+        }
+        String url = WechatOfficeURLContants.SEND_STATUS_URL.replace("ACCESS_TOKEN", accessToken);
+        log.info("微信公众号群发消息发送状态url:{}", url);
+        JSONObject js = new JSONObject();
+        js.put("msg_id", msg_id);
+        String request = js.toJSONString();
+        log.info("微信公众号群发消息发送状态请求参数:{}", request);
+        String response = restTemplate.postForObject(url, request, String.class);
+        log.info("微信公众号群发消息发送状态结果:{}", response);
+        boolean validate = JSONValidator.from(response).validate();
+        if (validate) {
+            WxOfficeSendStatusResponse wxOfficeSendStatusResponse = JSONObject.parseObject(response, WxOfficeSendStatusResponse.class);
+            return wxOfficeSendStatusResponse;
+        }
+        return null;
+    }
+
+    /**
      * 删除群发消息
      *
      * @param accessToken

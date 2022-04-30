@@ -24,14 +24,23 @@ public class WxOfficeTest {
     @Autowired
     private WxOfficeConfig wxOfficeConfig;
 
+    /**
+     * 测试获取微信公众号token
+     */
     @Test
     public void testToken() {
-
         WxToken token = wechatOfficeAccountService.getToken();
         log.info("token={}", token);
-
     }
 
+    /**
+     * 测试上传图文消息内的图片获取URL
+     * 其中url就是上传图片的URL，可用于后续群发中，放置到图文消息中。
+     * 错误时微信会返回错误码等信息，请根据错误码查询错误信息
+     *
+     *
+     * 上传图文消息素材【订阅号与服务号认证后均可用】
+     */
     @Test
     public void testUploadImage() {
 
@@ -41,6 +50,9 @@ public class WxOfficeTest {
 
     }
 
+    /**
+     *
+     */
     @Test
     public void testAddPermanentMaterial() {
 
@@ -80,10 +92,8 @@ public class WxOfficeTest {
 
 
     @Test
-    public void testSendArticle(){
-
-        String token=wxOfficeConfig.getToken();
-
+    public void testSendArticle() {
+        String token = wxOfficeConfig.getToken();
         WxMessage wxMessage = new WxMessage();
         WxMessage.Fliter fliter = new WxMessage.Fliter();
         fliter.setIs_to_all(true);
@@ -91,13 +101,16 @@ public class WxOfficeTest {
         WxMessage.Mpnews mpnews = new WxMessage.Mpnews();
         mpnews.setMedia_id("nkXr99xVPx-KG1ZGAl9XxXqW-KC19J4FJfBcX3MbcadbM9lKpdUta31P5zR6ZdME");
         wxMessage.setMpnews(mpnews);
-
         wxMessage.setMsgtype("mpnews");
         wxMessage.setSend_ignore_reprint(1);
+        wechatOfficeAccountService.sendArticle(token, wxMessage);
+    }
 
-        wechatOfficeAccountService.sendArticle(token,wxMessage);
-
-
+    @Test
+    public void testSendStatus() {
+        String token = wxOfficeConfig.getToken();
+        String msg_id = "201053012";
+        wechatOfficeAccountService.getSendStatus(token, msg_id);
     }
 
 }

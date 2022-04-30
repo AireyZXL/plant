@@ -72,12 +72,23 @@ public interface WechatOfficeAccountService {
 
 
     /**
+     * 查询群发消息发送状态【订阅号与服务号认证后均可用】
+     *
+     * @param accessToken
+     * @param msg_id
+     * @return
+     */
+    WxOfficeSendStatusResponse getSendStatus(String accessToken, String msg_id);
+
+
+    /**
      * 删除群发消息
+     *
      * @param accessToken
      * @param wxOfficeDeleteMsg
      * @return
      */
-    boolean deleteMessage(String accessToken,WxOfficeDeleteMsg wxOfficeDeleteMsg);
+    boolean deleteMessage(String accessToken, WxOfficeDeleteMsg wxOfficeDeleteMsg);
 
 
 }
