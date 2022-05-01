@@ -25,17 +25,7 @@ public class WxMainTest {
     @Autowired
     private WechatOfficeAccountService wechatOfficeAccountService;
 
-    @Autowired
-    private WxOfficeConfig wxOfficeConfig;
 
-    /**
-     * 测试获取微信公众号token  可以反复run
-     */
-    @Test
-    public void testToken() {
-        WxToken token = wechatOfficeAccountService.getToken();
-        log.info("token={}", token);
-    }
 
     /**
      * 测试发布草稿文章，直接返回文章详情   可以反复run

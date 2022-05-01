@@ -91,7 +91,9 @@ public class WxOfficeTest {
 //nkXr99xVPx-KG1ZGAl9XxXqW-KC19J4FJfBcX3MbcadbM9lKpdUta31P5zR6ZdME
     }
 
-
+    /**
+     * 测试查看草稿详情
+     */
     @Test
     public void testDraftDetail() {
 
