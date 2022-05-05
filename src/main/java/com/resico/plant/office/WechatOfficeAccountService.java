@@ -1,9 +1,6 @@
 package com.resico.plant.office;
 
-import com.resico.plant.office.model.Articles;
-import com.resico.plant.office.model.WxMessage;
-import com.resico.plant.office.model.WxOfficeDeleteMsg;
-import com.resico.plant.office.model.WxToken;
+import com.resico.plant.office.model.*;
 import com.resico.plant.office.response.*;
 
 /**
@@ -62,6 +59,16 @@ public interface WechatOfficeAccountService {
 
 
     /**
+     * 获取草稿
+     *
+     * @param accessToken
+     * @param media_id
+     * @return
+     */
+    WxOfficeDraftDetailResponse getDraft(String accessToken, String media_id);
+
+
+    /**
      * 群发图文消息
      *
      * @param accessToken
@@ -72,12 +79,23 @@ public interface WechatOfficeAccountService {
 
 
     /**
+     * 查询群发消息发送状态【订阅号与服务号认证后均可用】
+     *
+     * @param accessToken
+     * @param msg_id
+     * @return
+     */
+    WxOfficeSendStatusResponse getSendStatus(String accessToken, String msg_id);
+
+
+    /**
      * 删除群发消息
+     *
      * @param accessToken
      * @param wxOfficeDeleteMsg
      * @return
      */
-    boolean deleteMessage(String accessToken,WxOfficeDeleteMsg wxOfficeDeleteMsg);
+    boolean deleteMessage(String accessToken, WxOfficeDeleteMsg wxOfficeDeleteMsg);
 
 
 }

@@ -5,10 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONValidator;
 import com.resico.plant.office.*;
-import com.resico.plant.office.model.Articles;
-import com.resico.plant.office.model.WxMessage;
-import com.resico.plant.office.model.WxOfficeDeleteMsg;
-import com.resico.plant.office.model.WxToken;
+import com.resico.plant.office.model.*;
 import com.resico.plant.office.response.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -199,6 +196,34 @@ public class WechatOfficeAccountServiceImpl implements WechatOfficeAccountServic
         return null;
     }
 
+    /**
+     * 获取草稿
+     *
+     * @param accessToken
+     * @param media_id
+     * @return
+     */
+    @Override
+    public WxOfficeDraftDetailResponse getDraft(String accessToken, String media_id) {
+        if (ObjectUtil.isNull(accessToken)) {
+            throw new RuntimeException("微信公众号请求accessToken不能为空");
+        }
+        String url = WechatOfficeURLContants.GET_DRAFT_URL.replace("ACCESS_TOKEN", accessToken);
+        log.info("微信公众号获取草稿url:{}", url);
+        JSONObject js = new JSONObject();
+        js.put("media_id", media_id);
+        String request = js.toJSONString();
+        log.info("微信公众号获取草稿请求参数:{}", request);
+        String response = restTemplate.postForObject(url, request, String.class);
+        log.info("微信公众号获取草稿结果:{}", response);
+        boolean validate = JSONValidator.from(response).validate();
+        if (validate) {
+            WxOfficeDraftDetailResponse wxOfficeDraftDetailResponse = JSONObject.parseObject(response, WxOfficeDraftDetailResponse.class);
+            return wxOfficeDraftDetailResponse;
+        }
+        return null;
+    }
+
 
     /**
      * 群发图文消息
@@ -224,6 +249,34 @@ public class WechatOfficeAccountServiceImpl implements WechatOfficeAccountServic
         if (validate) {
             WxOfficeSendToAllResponse wxOfficeSendToAllResponse = JSONObject.parseObject(response, WxOfficeSendToAllResponse.class);
             return wxOfficeSendToAllResponse;
+        }
+        return null;
+    }
+
+    /**
+     * 查询群发消息发送状态【订阅号与服务号认证后均可用】
+     *
+     * @param accessToken
+     * @param msg_id
+     * @return
+     */
+    @Override
+    public WxOfficeSendStatusResponse getSendStatus(String accessToken, String msg_id) {
+        if (ObjectUtil.isNull(accessToken)) {
+            throw new RuntimeException("微信公众号请求accessToken不能为空");
+        }
+        String url = WechatOfficeURLContants.SEND_STATUS_URL.replace("ACCESS_TOKEN", accessToken);
+        log.info("微信公众号群发消息发送状态url:{}", url);
+        JSONObject js = new JSONObject();
+        js.put("msg_id", msg_id);
+        String request = js.toJSONString();
+        log.info("微信公众号群发消息发送状态请求参数:{}", request);
+        String response = restTemplate.postForObject(url, request, String.class);
+        log.info("微信公众号群发消息发送状态结果:{}", response);
+        boolean validate = JSONValidator.from(response).validate();
+        if (validate) {
+            WxOfficeSendStatusResponse wxOfficeSendStatusResponse = JSONObject.parseObject(response, WxOfficeSendStatusResponse.class);
+            return wxOfficeSendStatusResponse;
         }
         return null;
     }
