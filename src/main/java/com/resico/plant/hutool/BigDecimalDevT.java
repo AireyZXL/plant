@@ -15,6 +15,8 @@ public class BigDecimalDevT {
     public static void main(String[] args) {
 
         BigDecimal bigDecimal=BigDecimal.TEN;
+
+        bigDecimal = bigDecimal.add(BigDecimal.valueOf(100));
         System.out.println(bigDecimal);
 
         BigDecimal b1=new BigDecimal("1820.12");
